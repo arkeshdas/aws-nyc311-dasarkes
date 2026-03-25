@@ -7,9 +7,9 @@
 - **Files**: 
   - `raw/complaints.csv` (200k rows, main requests table)
   - `raw/agencies.csv` (unique agencies lookup table)
-- **S3 paths** (fill after upload):
-  - `s3://your-bucket-name/raw/complaints.csv`
-  - `s3://your-bucket-name/raw/agencies.csv`
+- **S3 paths**:
+  - `s3://cmse492-dasarkes-nyc311-471112527784-us-east-1-an/raw/complaints.csv`
+  - `s3://cmse492-dasarkes-nyc311-471112527784-us-east-1-an/raw/agencies.csv`
 
 ## Project Structure
 
@@ -26,7 +26,7 @@ aws-nyc311-yourMSUNetID/      # Update with your GitHub repo name
 ```
 
 ## Data Summary
-See `data-dictionary.md` for full schema.
+See [the data dictionary](DATA_DICTIONARY.md) for full schema.
 
 **Key relationships**: Join `complaints.agency = agencies.agency`
 
