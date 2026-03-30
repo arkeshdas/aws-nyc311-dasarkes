@@ -33,3 +33,17 @@ FROM nyc311_db.complaints
 GROUP BY borough, problem
 ORDER BY n DESC
 LIMIT 20;
+/*
+This query groups the complaints by both 'borough' and 'problem', counts the number of complaints 
+#	agency	n
+1	NYPD	71182
+2	HPD	59457
+3	DSNY	23321
+4	DOT	18838
+5	DEP	9880
+6	DOB	5266
+7	DPR	3802
+8	DOHMH	3521
+9	TLC	1703
+10	DHS	1163
+*/
