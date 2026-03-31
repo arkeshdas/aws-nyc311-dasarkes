@@ -47,3 +47,31 @@ This query groups the complaints by both 'borough' and 'problem', counts the num
 9	TLC	1703
 10	DHS	1163
 */
+
+SELECT 
+  c.agency,
+  a.agency_name,
+  COUNT(*) AS n
+FROM nyc311_db.complaints AS c
+JOIN nyc311_db.agencies AS a
+  ON c.agency = a.agency
+GROUP BY c.agency, a.agency_name
+ORDER BY n DESC;
+/*
+#	agency	agency_name	n
+1	NYPD	New York City Police Department	71182
+2	HPD	Department of Housing Preservation and Development	59457
+3	DSNY	Department of Sanitation	23321
+4	DOT	Department of Transportation	18838
+5	DEP	Department of Environmental Protection	9880
+6	DOB	Department of Buildings	5266
+7	DPR	Department of Parks and Recreation	3802
+8	DOHMH	Department of Health and Mental Hygiene	3521
+9	TLC	Taxi and Limousine Commission	1703
+10	DHS	Department of Homeless Services	1163
+11	DCWP	Department of Consumer and Worker Protection	952
+12	EDC	Economic Development Corporation	545
+13	OOS	Office of the Sheriff	216
+14	DOE	Department of Education	147
+15	OTI	Office of Technology and Innovation	7
+*/
