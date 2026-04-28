@@ -61,3 +61,28 @@ This file cooresponds to the queries located in my sql folder, and documents why
   The corrected query produced reasonable results. Agencies like OOS and DCWP had higher average resolution times, while NYPD had an extremely low average, which is plausible given that many NYPD complaints are resolved almost immediately. The results align with expectations about operational differences across agencies. The main takeaway is that string-based date fields require careful validation before parsing, especially in datasets where missing values may be encoded as empty strings instead of NULLs. No further refinements are strictly necessary for this level of analysis, though future work could improve precision by measuring resolution time in hours instead of whole days.
 
 * **Confidence:** High. Would present to stakeholder.
+
+## Query: Resolution time modeling table (2026-03-30)
+
+* **File:** sql/athena_to_modeling.sql
+
+* **Business question:**
+  How long will a complaint take to be resolved, and what factors influence that?
+
+* **What I expected:**
+  I expected to successfully create a clean modeling table with a clear target variable (`days_to_close`) and relevant features that could later be used in a regression model. 
+
+* **Issues encountered:**
+  No major errors during execution.
+
+* **Checks performed:**
+  I ran a `SELECT * LIMIT 10` query on the new table to verify that all columns were created correctly and that transformations worked as intended. I checked that:
+
+- day_of_week and hour_of_day were within expected ranges
+- same_day_complaint_volume looked consistent across similar rows
+- days_to_close was non-negative and within the filtered 0 to 365 day range
+
+* **Final outcome:**
+  The modeling table was created successfully and contains both the target variable and relevant features for analysis. The values look reasonable and consistent.
+
+* **Confidence:** High. Would present to stakeholder.
