@@ -1,6 +1,46 @@
 # Sanity Check Log
 
-This file cooresponds to the queries located in my sql folder, and documents why I ran each of the queries I did on the AWS database.
+This file cooresponds to the queries located in my sql folder, and documents why I ran each of the queries I did on the Athena AWS database.
+
+## Query: Initialize complaints table (2026-03-27)
+
+* **File:** sql/nyc311_db_init.sql
+
+* **Business question:** Can I reliably load and structure raw 311 complaint data from S3 into Athena for downstream analysis?
+
+* **What I expected:**
+  I expected the table to load successfully and return rows that match the CSV structure, with columns like `agency`, `created_date`, and `problem` populated correctly. I also expected no header rows to appear in the data due to the `skip.header.line.count` setting.
+
+* **Issues encountered:**
+  No immediate errors during table creation.
+
+* **Checks performed:**
+  I ran a `SELECT * LIMIT 5` query to confirm that the table was accessible and that columns were mapped correctly. I also verified that the header row was skipped and not included as data. 
+
+* **Final outcome:**
+  The table was created successfully and is usable for analysis.
+
+* **Confidence:** High. Would present to stakeholder.
+
+## Query: Initialize agencies table (2026-03-27)
+
+* **File:** nyc311_db_init.sql
+
+* **Business question:** Can I create a clean lookup table to map agency codes to full agency names?
+
+* **What I expected:**
+  I expected a small, clean table with unique agency codes and corresponding full names, which could be used for joins to improve readability in analysis queries.
+
+* **Issues encountered:**
+  No issues during table creation or initial validation. The dataset is simple and well-structured compared to the complaints table, so there were fewer risks of malformed data.
+
+* **Checks performed:**
+  I ran a `SELECT * LIMIT 5` query to confirm that the table loaded correctly and that both `agency` and `agency_name` fields were populated as expected. 
+
+* **Final outcome:**
+  The agencies table functions as intended and provides a clean mapping for use in joins. 
+
+* **Confidence:** High. Would present to stakeholder.
 
 ## Query: Average resolution time by agency (2026-03-27)
 
