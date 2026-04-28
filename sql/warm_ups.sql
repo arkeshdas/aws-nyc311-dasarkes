@@ -1,3 +1,14 @@
+/*
+This SQL script contains a series of queries designed to analyze the complaints data in the 'nyc311_db' database,
+and to explore its structure and content. 
+The queries include counting the total number of complaints, finding the earliest and latest complaint dates, 
+identifying the top agencies receiving complaints, and analyzing the distribution of complaints by borough and problem type. 
+Additionally, a join query is included to link complaints with their corresponding agency names for a more comprehensive analysis.
+If these queries succeed, then that means the database is properly set up and contains the expected data.
+*/
+
+
+
 SELECT COUNT(*) AS n_complaints
 FROM nyc311_db.complaints;
 -- This query counts the total number of complaints in the 'complaints' table of the 'nyc311_db' database. The expected result is 200,000 (as a single number).
