@@ -3,35 +3,40 @@
 **Date created:** 04/01/2026
 
 ## Business question
-Predict expected resolution time at the moment a complaint is filed, so they can set realistic expectations with residents. What factors drive that time?
+
+Predict expected resolution time at the moment a complaint is filed, so agencies can set realistic expectations. What factors drive that time?
 
 ## Data source
-- **S3 path:** `cmse492-dasarkes-nyc311-471112527784-us-east-1-an/modeling/q2_modeling_data.csv`
-- **Records:** [number from df.shape[0]]
-- **Athena query:** sql/athena_to_modeling.sql
 
-## Features (update/expand based on your query)
-- agency (string)
-- borough (string)
-- n_complaints (numeric, count of complaints)
-- avg_days_to_close (numeric, average resolution time)
-- ... (other features)
+* **S3 path:** `cmse492-dasarkes-nyc311-471112527784-us-east-1-an/modeling/q2_modeling_data.csv`
+* **Records:** 172,086 (after filtering missing values, from original 173,851)
+* **Athena query:** `sql/athena_to_modeling.sql`
+
+## Features
+
+* agency (categorical, 9 unique values)
+* borough (categorical, 5 values)
+* problem (categorical, moderate cardinality)
+* incident_zip (numeric/categorical, high cardinality)
+* day_of_week (numeric, 1–7)
+* hour_of_day (numeric, 0–23)
+* same_day_complaint_volume (numeric)
 
 ## Target
-- **Name:** days_to_close
-- **Type:** 
-- **Balance/Distribution:** [paste results from your target variable distribution check]
 
-## Modeling approach (update based on your question and data)
-- **Baseline:** Logistic regression (interpretable, fast to train)
-- **Metrics:** Accuracy, precision, recall
-- **Train/test split:** 80/20
-MLS and do dummy vairables to not imply heirarchy, etc. 
-## Data quality notes
-- [Any missing values, outliers, or issues to watch for]
+* **Name:** days_to_close
+* **Type:** Continuous (integer)
+* **Distribution:**
+  Highly right-skewed with strong zero inflation.
 
-## Next steps (What you'll work on in the next class period; update/modify based on your plan)
-- Train/test split
-- Fit baseline logistic regression
-- Evaluate and interpret results
-```
+  * Mean: ~2.06 days
+  * Median: 0 days
+  * ~62% of complaints are resolved the same day (0 days)
+  * Long tail up to 49 days
+
+## Modeling approach
+
+* **Baseline:** Multiple Linear Regression
+* **Preprocessing:** One-hot encoding for categorical variables (to avoid imposing artificial ordering)
+* **Metrics:** RMSE, MAE, $R^2$
+* **Train/test split:** 80/20
