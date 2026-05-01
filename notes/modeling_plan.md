@@ -40,3 +40,11 @@ Predict expected resolution time at the moment a complaint is filed, so agencies
 * **Preprocessing:** One-hot encoding for categorical variables (to avoid imposing artificial ordering)
 * **Metrics:** RMSE, MAE, $R^2$
 * **Train/test split:** 80/20
+
+### Interpretation
+
+The baseline regression model captures some variation in resolution time, but performance is limited by the structure of the data. The `problem` feature initially dominated the model, suggesting that complaint type is the strongest driver of resolution time, but this reduces interpretability. After restricting to more common problems and applying backward selection, the model became more balanced and highlighted broader patterns, though overall predictive power remained modest.
+
+### Limitation
+
+A major limitation is that the target variable is highly skewed and dominated by same-day resolutions, which makes it difficult for a linear model to accurately capture longer resolution times. Additionally, high-cardinality categorical variables, especially `problem` and `incident_zip`, can lead to overfitting or models that rely on very specific categories rather than generalizable patterns.
