@@ -48,3 +48,22 @@ The baseline regression model captures some variation in resolution time, but pe
 ### Limitation
 
 A major limitation is that the target variable is highly skewed and dominated by same-day resolutions, which makes it difficult for a linear model to accurately capture longer resolution times. Additionally, high-cardinality categorical variables, especially `problem` and `incident_zip`, can lead to overfitting or models that rely on very specific categories rather than generalizable patterns.
+
+
+## Comparison with SageMaker models
+
+* **Notebook used:** `sagemaker_linear_learner_baseline.ipynb` (provided notebook)
+
+* **Task type:** Regression (predicting `days_to_close`)
+
+* **Key metrics observed:**
+
+  * MAE: 1.88 (vs 2.80 naive baseline)
+  * RMSE: 4.14 (vs 5.21 naive baseline)
+  * R²: 0.3671
+
+* **Comparison to sklearn model:**
+  The SageMaker Linear Learner performed comparably or slightly better than the baseline sklearn linear regression, suggesting that most of the predictive signal is already captured by a simple linear approach.
+
+* **Is SageMaker worth it?:**
+  For this problem, the SageMaker workflow does not add much value since similar performance can be achieved locally with sklearn and less overhead. It would be more useful in a scenario with much larger data, more complex models like XGBoost, or when needing scalable training and deployment pipelines.
